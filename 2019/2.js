@@ -32,7 +32,6 @@
     // part1(intData);
 
     function part2() {
-        let answer = [];
         for(let i = 0; i <= 99; i++) {
             for(let z = 0; z <= 99; z++) {
                 let myData = document.getElementsByTagName('pre')[0].innerHTML.split(',').map(item => +item);
@@ -41,6 +40,7 @@
                 const result = part1(myData);
                 if(result === 19690720) {
                     console.log(i, z, 'ANSWER');
+                    return;
                 }
             }
         }
