@@ -32,12 +32,13 @@
     // part1(intData);
 
     function part2() {
+        const myData = document.getElementsByTagName('pre')[0].innerHTML.split(',').map(item => +item);
         for(let i = 0; i <= 99; i++) {
             for(let z = 0; z <= 99; z++) {
-                let myData = document.getElementsByTagName('pre')[0].innerHTML.split(',').map(item => +item);
-                myData[1] = i;
-                myData[2] = z;
-                const result = part1(myData);
+                let copy = [...myData]
+                copy[1] = i;
+                copy[2] = z;
+                const result = part1(copy);
                 if(result === 19690720) {
                     console.log(i, z, 'ANSWER');
                     return;
