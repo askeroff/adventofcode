@@ -1,5 +1,4 @@
-// first part of the puzzle is too simple to keep it in here
-// just map the array and reduce the values to single sum
+// first part just map the array and reduce the values to single sum
 const pre = document.getElementsByTagName('pre')[0];
 const data = pre.innerHTML.toString().split('\n');
 data.pop();
