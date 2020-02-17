@@ -1,38 +1,21 @@
 (function () {
+
+  const directions = {L: [-1, 0], R: [1, 0], U: [0, 1], D: [0, -1]};
+
+  function step(direction, current, path) {
+    current.y += directions[direction][1];
+    current.x += directions[direction][0];
+    current.steps += 1;
+    const markCrossed = path[`${current.x}, ${current.y}`] && current.cross;
+    path[`${current.x}, ${current.y}`] = markCrossed ? 'crossed' : true;
+    current[`${current.x}, ${current.y}steps`] = current.steps;
+  }
+
   function move(coord, current, path) {
-    let steps = coord.slice(1);
-    if (coord[0] === 'U') {
-      for (let i = 0; i < +steps; i++) {
-        current.y += 1;
-        current.steps += 1;
-        const markCrossed = path[`${current.x}, ${current.y}`] && current.cross;
-        path[`${current.x}, ${current.y}`] = markCrossed ? 'crossed' : true;
-        current[`${current.x}, ${current.y}steps`] = current.steps;
-      }
-    } else if (coord[0] === 'D') {
-      for (let i = 0; i < +steps; i++) {
-        current.y -= 1;
-        current.steps += 1;
-        const markCrossed = path[`${current.x}, ${current.y}`] && current.cross;
-        path[`${current.x}, ${current.y}`] = markCrossed ? 'crossed' : true;
-        current[`${current.x}, ${current.y}steps`] = current.steps;
-      }
-    } else if (coord[0] === 'L') {
-      for (let i = 0; i < +steps; i++) {
-        current.x -= 1;
-        current.steps += 1;
-        const markCrossed = path[`${current.x}, ${current.y}`] && current.cross;
-        path[`${current.x}, ${current.y}`] = markCrossed ? 'crossed' : true;
-        current[`${current.x}, ${current.y}steps`] = current.steps;
-      }
-    } else if (coord[0] === 'R') {
-      for (let i = 0; i < +steps; i++) {
-        current.x += 1;
-        current.steps += 1;
-        const markCrossed = path[`${current.x}, ${current.y}`] && current.cross;
-        path[`${current.x}, ${current.y}`] = markCrossed ? 'crossed' : true;
-        current[`${current.x}, ${current.y}steps`] = current.steps;
-      }
+    const steps = coord.slice(1);
+    const direction = coord[0];
+    for (let i = 0; i < +steps; i++) {
+      step(direction, current, path);
     }
   }
 
