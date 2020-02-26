@@ -35,7 +35,7 @@
         const myData = document.getElementsByTagName('pre')[0].innerHTML.split(',').map(item => +item);
         for(let i = 0; i <= 99; i++) {
             for(let z = 0; z <= 99; z++) {
-                let copy = [...myData]
+                let copy = [...myData];
                 copy[1] = i;
                 copy[2] = z;
                 const result = part1(copy);
