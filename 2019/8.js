@@ -1,13 +1,12 @@
-(function () {
+(function() {
   let data = document.getElementsByTagName('pre')[0].innerHTML.split('');
   data.pop();
   let puzzleData = data.map(item => +item);
-  let testData = '0222112222120000'.split('').map(item => +item);
-
+  let testData = '0222112222120000'.split('').map(i => +i);
   let layers = [];
 
-  const w = 2;
-  const h = 2;
+  const w = 25;
+  const h = 6;
 
   function solvePart1(input) {
     let stop = false;
@@ -37,46 +36,45 @@
     });
     let min = Infinity;
     let minIndex = 0;
-
     zeroes.forEach((zero, index) => {
       if (zero < min) {
         min = zero;
         minIndex = index;
       }
     });
-
     const twos = data[minIndex].flat().filter(n => n === 2).length;
     const ones = data[minIndex].flat().filter(n => n === 1).length;
     console.log(twos * ones, 'ANSWER TO FIRST PART');
     layers = data;
   }
+  // solvePart1(testData);
+  solvePart1(puzzleData);
 
-  solvePart1(testData);
-
-  // solvePart1(puzzleData);
-
-
-  function solvePart2() {
+  function solvePartTwo() {
     const answer = [];
-    console.log(layers, 'layers');
     for (let z = 0; z < h; z++) {
       let arr = [];
       for (let i = 0; i < w; i++) {
-        layers.forEach((layer) => {
-          if (layer[z][i] !== 2 && arr[i] !== 0) {
+        for (let j = layers.length - 1; j >= 0; j--) {
+          let layer = layers[j];
+          if (layer[z][i] !== 2 && layer[z][i] !== undefined) {
             arr[i] = layer[z][i];
           } else if (arr[i] === undefined) {
             arr[i] = '_';
           }
-        });
+        }
       }
-
       answer.push(arr);
     }
-
-    console.log(answer, 'second answer');
+    // PRINT THE ANSWER
+    document.body.innerHTML = '';
+    answer.forEach(row => {
+      row.forEach(val => {
+        document.body.innerHTML += val === 1 ? '⬛' : '🟨';
+      });
+      document.body.innerHTML += '<br>';
+    });
   }
 
-  solvePart2();
-
+  solvePartTwo();
 })();
